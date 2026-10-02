@@ -1,0 +1,59 @@
+# Splat config for Civizard: Majutsu no Keifu (Japan) main program.
+# Loaded by SLPS_006.18 from cdrom:\WIZARDS.EXE;1
+name: Civizard Majutsu no Keifu (Japan) main
+sha1: d18ddc594f31c0534206913da229cf3cf9896301
+
+options:
+  basename: wizards.exe
+  target_path: disc/WIZARDS.EXE
+  elf_path: build/wizards.exe.elf
+  base_path: ..
+  platform: psx
+  compiler: PSYQ
+
+  asm_path: asm/wizards.exe
+  src_path: src/wizards.exe
+  build_path: build/wizards.exe
+  asset_path: assets/wizards.exe
+
+  find_file_boundaries: False
+  global_vram_start: 0x80010000
+  disassemble_all: True
+  make_full_disasm_for_code: True
+
+  o_as_suffix: False
+  use_legacy_include_asm: False
+  ld_dependencies: True
+  ld_script_path: build/wizards.exe.ld
+
+  asm_function_macro: glabel
+  asm_jtbl_label_macro: jlabel
+  asm_data_macro: dlabel
+
+  section_order: [".rodata", ".text", ".sdata", ".data", ".sbss", ".bss"]
+
+  symbol_addrs_path:
+    - config/symbol_addrs.wizards.exe.txt
+  undefined_funcs_auto_path: config/undefined_funcs_auto.wizards.exe.txt
+  undefined_syms_auto_path: config/undefined_syms_auto.wizards.exe.txt
+
+  subalign: 4
+  string_encoding: ASCII
+  data_string_encoding: ASCII
+  rodata_string_guesser_level: 2
+  migrate_rodata_to_functions: true
+  ld_bss_is_noload: True
+
+segments:
+  - name: header
+    type: header
+    start: 0x0
+
+  - name: main
+    type: code
+    start: 0x800
+    vram: 0x80010000
+    align: 4
+    subsegments:
+      - [0x800, asm, main]
+      - [0x14E000]

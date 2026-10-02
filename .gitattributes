@@ -1,0 +1,11 @@
+* text=auto eol=lf
+*.c text
+*.h text
+*.s text
+*.yaml text
+*.yml text
+*.txt text
+*.md text
+*.py text
+Makefile text
+LICENSE text

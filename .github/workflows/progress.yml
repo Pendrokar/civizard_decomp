@@ -1,0 +1,70 @@
+name: Upload objdiff report for decomp.dev
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - game_id: SLPS_006.18
+            yaml: config/slps_006.18.yaml
+            secret: FILE_URL
+          - game_id: WIZARDS.EXE
+            yaml: config/wizards.exe.yaml
+            secret: FILE_URL_WIZARDS
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          sudo apt-get update
+          sudo apt-get install -y binutils-mipsel-linux-gnu
+
+      - name: Fetch original executable
+        env:
+          FILE_URL: ${{ secrets.FILE_URL }}
+          FILE_URL_WIZARDS: ${{ secrets.FILE_URL_WIZARDS }}
+        run: |
+          mkdir -p disc
+          if [ "${{ matrix.secret }}" = "FILE_URL" ]; then
+            test -n "$FILE_URL"
+            curl -L -o "disc/${{ matrix.game_id }}" "$FILE_URL"
+          else
+            test -n "$FILE_URL_WIZARDS"
+            curl -L -o "disc/${{ matrix.game_id }}" "$FILE_URL_WIZARDS"
+          fi
+
+      - name: Verify checksum
+        run: sha1sum --check --ignore-missing config/checksum.sha1
+
+      - name: Split with splat
+        run: python -m splat split "${{ matrix.yaml }}" --disassemble-all --make-full-disasm-for-code
+
+      - name: Generate progress report
+        run: |
+          python tools/download_objdiff.py
+          mkdir -p build
+          if ! ./tools/objdiff-cli report generate -o "build/${{ matrix.game_id }}_report.json"; then
+            python tools/gen_empty_report.py "build/${{ matrix.game_id }}_report.json"
+          fi
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.game_id }}_report
+          path: build/${{ matrix.game_id }}_report.json

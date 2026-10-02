@@ -1,0 +1,48 @@
+# Original binaries (do not commit)
+disc/*
+!disc/.gitkeep
+
+# Splat output
+asm/
+assets/
+expected/
+undefined_funcs_auto.txt
+undefined_syms_auto.txt
+config/undefined_funcs_auto.*
+config/undefined_syms_auto.*
+.splache
+*.ld
+
+# Build products
+build/
+obj/
+*.o
+*.elf
+*.exe
+*.map
+compile_commands.json
+
+# objdiff
+objdiff.json
+report.json
+**/progress.json
+
+# Python
+.venv/
+env/
+__pycache__/
+*.pyc
+
+# Ninja / make
+build.ninja
+.ninja_log
+*.ninja
+
+# Editors
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*:Zone.Identifier
+permuter/
+permuter_settings.toml

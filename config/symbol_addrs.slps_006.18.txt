@@ -1,0 +1,4 @@
+// Boot executable SLPS_006.18 (load 0x80150000).
+// splat auto-names; replace these as functions are identified.
+
+entry = 0x80150B4C; // type:func size:4

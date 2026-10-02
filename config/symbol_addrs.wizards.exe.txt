@@ -1,0 +1,4 @@
+// Main program WIZARDS.EXE (load 0x80010000).
+// splat auto-names; replace these as functions are identified.
+
+entry = 0x8007C978; // type:func size:4

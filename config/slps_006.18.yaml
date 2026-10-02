@@ -1,0 +1,59 @@
+# Splat config for Civizard: Majutsu no Keifu (Japan) boot EXE.
+# Serial SLPS-00618 / disc file SLPS_006.18
+name: Civizard Majutsu no Keifu (Japan) boot
+sha1: 0fc5782013abead42b66d1159992de7e82d3dd58
+
+options:
+  basename: slps_006.18
+  target_path: disc/SLPS_006.18
+  elf_path: build/slps_006.18.elf
+  base_path: ..
+  platform: psx
+  compiler: PSYQ
+
+  asm_path: asm/slps_006.18
+  src_path: src/slps_006.18
+  build_path: build/slps_006.18
+  asset_path: assets/slps_006.18
+
+  find_file_boundaries: False
+  global_vram_start: 0x80150000
+  disassemble_all: True
+  make_full_disasm_for_code: True
+
+  o_as_suffix: False
+  use_legacy_include_asm: False
+  ld_dependencies: True
+  ld_script_path: build/slps_006.18.ld
+
+  asm_function_macro: glabel
+  asm_jtbl_label_macro: jlabel
+  asm_data_macro: dlabel
+
+  section_order: [".rodata", ".text", ".sdata", ".data", ".sbss", ".bss"]
+
+  symbol_addrs_path:
+    - config/symbol_addrs.slps_006.18.txt
+  undefined_funcs_auto_path: config/undefined_funcs_auto.slps_006.18.txt
+  undefined_syms_auto_path: config/undefined_syms_auto.slps_006.18.txt
+
+  subalign: 4
+  string_encoding: ASCII
+  data_string_encoding: ASCII
+  rodata_string_guesser_level: 2
+  migrate_rodata_to_functions: true
+  ld_bss_is_noload: True
+
+segments:
+  - name: header
+    type: header
+    start: 0x0
+
+  - name: main
+    type: code
+    start: 0x800
+    vram: 0x80150000
+    align: 4
+    subsegments:
+      - [0x800, asm, main]
+      - [0x20800]
