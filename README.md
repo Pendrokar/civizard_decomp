@@ -1,8 +1,8 @@
 # Civizard: Majutsu no Keifu matching decompilation
 
-Matching decompilation of the Japanese PlayStation release **SLPS-00618** (*Civizard: Majutsu no Keifu*, Elf, 1996).
+Matching decompilation of the Japanese PlayStation release **SLPS-00618** (*Civizard: Majutsu no Keifu*, Elf, 1996). The Playstation port of the Master of Magic 4X title for the PC.
 
-This repository is the splat / objdiff project intended for [decomp.dev](https://decomp.dev/). It is not the Windows PSXRecomp port. Source is written to compile back to the original MIPS binaries with a PlayStation toolchain (Psy-Q / MASPSX), not to a native `.exe`.
+This repository is the splat / objdiff project. Source is written to compile back to the original MIPS binaries with a PlayStation toolchain (Psy-Q / MASPSX).
 
 | File | Role | Load | Entry | Text | SHA-1 |
 | --- | --- | --- | --- | --- | --- |
@@ -34,7 +34,7 @@ py -3 -m splat split config/wizards.exe.yaml --disassemble-all --make-full-disas
 
 ## decomp.dev
 
-Layout follows listed PS1 projects (Silent Hill, Xenogears): splat YAML under `config/`, GitHub Actions artifact named `VERSION_report`.
+Splat YAML under `config/`, GitHub Actions artifact named `VERSION_report`.
 
 1. Push this tree as its own GitHub repository (default branch `main`).
 2. Add repository secrets `FILE_URL` (boot EXE) and `FILE_URL_WIZARDS` (main EXE).
@@ -43,6 +43,11 @@ Layout follows listed PS1 projects (Silent Hill, Xenogears): splat YAML under `c
 5. Install the [decomp.dev GitHub app](https://github.com/apps/decomp-dev).
 
 A matching `ninja` / MASPSX rebuild is the next step after the first splat split. Until objdiff has base and target objects, CI writes a zero-percent report so the artifact name is in place.
+
+## Tilesets & Localization
+
+Deep analysis of tiles, BMF files and textual content:
+https://github.com/starwisp/Civizard-tileset-archeology
 
 ## License
 
