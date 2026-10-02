@@ -30,7 +30,7 @@ py -3 -m splat split config/slps_006.18.yaml --disassemble-all --make-full-disas
 py -3 -m splat split config/wizards.exe.yaml --disassemble-all --make-full-disasm-for-code
 ```
 
-`make extract` splits both executables. Matching C lives in `src/` once functions move out of `asm/`.
+`make extract` splits both executables. Matching C lives in `src/slps_006.18` and `src/wizards` once functions move out of `asm/`.
 
 ## decomp.dev
 

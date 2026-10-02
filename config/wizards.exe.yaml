@@ -12,7 +12,7 @@ options:
   compiler: PSYQ
 
   asm_path: asm/wizards.exe
-  src_path: src/wizards.exe
+  src_path: src/wizards
   build_path: build/wizards.exe
   asset_path: assets/wizards.exe
 

@@ -18,7 +18,9 @@ build/
 obj/
 *.o
 *.elf
+# Executables (disc dumps and host tools)
 *.exe
+!src/**
 *.map
 compile_commands.json
 
